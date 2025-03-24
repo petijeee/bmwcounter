@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Countdown to Sunday</title>
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+
+      // Day of the week (0=Sunday, 1=Monday, ... 6=Saturday)
+      const dayOfWeek = now.getDay();
+
+      // Calculate how many days until next Sunday
+      // If today is Sunday, set daysUntilSunday to 7 (meaning the upcoming Sunday, a week from now).
+      const daysUntilSunday = (dayOfWeek === 0) ? 7 : 7 - dayOfWeek;
+
+      // Create a Date object for the next Sunday at 00:00
+      const nextSunday = new Date(now);
+      nextSunday.setDate(now.getDate() + daysUntilSunday);
+      nextSunday.setHours(0, 0, 0, 0);
+
+      // Calculate the difference in milliseconds
+      const diff = nextSunday.getTime() - now.getTime();
+
+      // Convert diff to days, hours, minutes, seconds
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      // Display in an element with id="countdown"
+      const countdownElement = document.getElementById("countdown");
+      countdownElement.textContent = 
+        days + " days " + hours + " hours " + minutes + " minutes " + seconds + " seconds until Sunday!";
+    }
+
+    // Update countdown every second
+    setInterval(updateCountdown, 1000);
+
+    // Initialize when the page loads
+    window.onload = updateCountdown;
+  </script>
+</head>
+
+<body>
+  <h1>Countdown to Sunday</h1>
+  <p id="countdown"></p>
+</body>
+</html>
